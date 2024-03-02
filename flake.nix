@@ -24,7 +24,7 @@
 
       in {
         defaultPackage = rustPlatform.buildRustPackage {
-          pname = "rustLearning";
+          pname = "ebook_flow";
           version = "0.1.0";
           src = ./.;
           cargoLock.lockFile = ./Cargo.lock;
