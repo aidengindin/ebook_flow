@@ -1,5 +1,5 @@
 {
-  description = "Rust Learning";
+  description = "EbookFlow";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils = {
