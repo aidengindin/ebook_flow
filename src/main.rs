@@ -1,35 +1,11 @@
-use std::{fs, collections::HashSet};
-
-#[derive(Eq, Hash, PartialEq)]
-struct BookFile {
-    path: String,
-    file_type: FileType,
-}
-
-impl BookFile {
-    fn new(path: String, file_type: FileType) -> BookFile {
-        BookFile { path, file_type }
-    }
-}
-
-#[derive(Eq, Hash, PartialEq)]
-enum FileType {
-    Acsm,
-    Book,
-}
+use crate::config::load_config;
 
 fn main() {
-    let paths = fs::read_dir("./").unwrap();
-    let mut acsm_files = HashSet::new();
-    let mut ebook_files = HashSet::new();
-
-    for path in paths {
-        let path = path.unwrap().path().display().to_string();
-        if path.contains(".acsm") {
-            acsm_files.insert(BookFile::new(path, FileType::Acsm));
-        } else if path.contains(".epub") || path.contains(".azw") {
-            ebook_files.insert(BookFile::new(path, FileType::Book));
-        }
-    }
+    let config = if let Ok(config) = load_config() {
+        config
+    } else {
+        eprintln!("Failed to load configuration!");
+        std::process::exit(1);
+    };
 }
 
