@@ -36,7 +36,25 @@ mod tests {
             .expect("Failed to load config");
 
         assert_eq!(config.file_path, "/path/to/ebooks");
-        assert_eq!(config.calibre_url.as_str(), "http://calibre.box/");
+        assert_eq!(config.calibre_url.scheme(), "http");
+        assert_eq!(config.calibre_url.host_str(), Some("calibre.box"));
+        assert_eq!(config.acsm_conversion_timeout, 48);
+        assert_eq!(config.calibre_upload_timeout, 48);
+    }
+
+    #[test]
+    fn test_valid_with_auth() {
+        let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        path.push("tests/config/valid_auth.yaml");
+
+        let config = load_config(path.to_str().unwrap())
+            .expect("Failed to load config");
+
+        assert_eq!(config.file_path, "/path/to/ebooks");
+        assert_eq!(config.calibre_url.scheme(), "http");
+        assert_eq!(config.calibre_url.host_str(), Some("calibre.box"));
+        assert_eq!(config.calibre_url.username(), "user");
+        assert_eq!(config.calibre_url.password(), Some("password"));
         assert_eq!(config.acsm_conversion_timeout, 48);
         assert_eq!(config.calibre_upload_timeout, 48);
     }
