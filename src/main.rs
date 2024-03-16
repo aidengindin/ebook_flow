@@ -1,4 +1,7 @@
 mod config;
+mod conversion;
+mod file_operations;
+mod upload;
 
 use crate::config::load_config;
 
