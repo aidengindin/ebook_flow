@@ -6,7 +6,8 @@ mod upload;
 use crate::config::load_config;
 
 fn main() {
-    let config = if let Ok(config) = load_config() {
+    let config_path = "./config.yaml";
+    let config = if let Ok(config) = load_config(config_path) {
         config
     } else {
         eprintln!("Failed to load configuration!");

@@ -1,6 +1,9 @@
 use serde::Deserialize;
-use std::error::Error;
+use serde_yaml;
 use url::Url;
+use std::error::Error;
+use std::fs::File;
+use std::io::Read;
 
 #[derive(Deserialize)]
 pub struct Config {
@@ -10,12 +13,12 @@ pub struct Config {
     calibre_upload_timeout: u32,
 }
 
-pub fn load_config() -> Result<Config, Box<dyn Error>> {
-    Ok(Config {
-        file_path: "".to_string(),
-        calibre_url: Url::parse("https://aidengindin.com")?,
-        acsm_conversion_timeout: 48,
-        calibre_upload_timeout: 48,
-    })
+pub fn load_config(path: &str) -> Result<Config, Box<dyn Error>> {
+    let mut file = File::open(path)?;
+    let mut contents = String::new();
+    file.read_to_string(&mut contents)?;
+
+    let config: Config = serde_yaml::from_str(&contents)?;
+    Ok(config)
 }
 
