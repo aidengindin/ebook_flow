@@ -67,5 +67,12 @@ mod tests {
         path.push("tests/config/incorrect_types.yaml");
         assert!(load_config(path.to_str().unwrap()).is_err());
     }
+
+    #[test]
+    fn test_invalid_url() {
+        let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        path.push("tests/config/invalid_url.yaml");
+        assert!(load_config(path.to_str().unwrap()).is_err());
+    }
 }
 
