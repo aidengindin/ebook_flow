@@ -15,8 +15,7 @@ impl BookFile {
 #[derive(Eq, Hash, PartialEq)]
 enum FileType {
     Acsm,
-    Epub,
-    Azw,
+    Book,
 }
 
 fn main() {
@@ -28,13 +27,9 @@ fn main() {
         let path = path.unwrap().path().display().to_string();
         if path.contains(".acsm") {
             acsm_files.insert(BookFile::new(path, FileType::Acsm));
-        } else if path.contains(".epub") {
-            ebook_files.insert(BookFile::new(path, FileType::Epub));
-        } else if path.contains(".azw") {
-            ebook_files.insert(BookFile::new(path, FileType::Azw));
+        } else if path.contains(".epub") || path.contains(".azw") {
+            ebook_files.insert(BookFile::new(path, FileType::Book));
         }
     }
-
-    println!("{} acsm files", acsm_files.len());
-    println!("{} ebook files", ebook_files.len());
 }
+
