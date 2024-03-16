@@ -40,5 +40,32 @@ mod tests {
         assert_eq!(config.acsm_conversion_timeout, 48);
         assert_eq!(config.calibre_upload_timeout, 48);
     }
+    
+    #[test]
+    fn test_config_file_not_found() {
+        let path = "/this/file/does/not.exist";
+        assert!(load_config(path).is_err());
+    }
+
+    #[test]
+    fn test_invalid_yaml() {
+        let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        path.push("tests/config/invalid.yaml");
+        assert!(load_config(path.to_str().unwrap()).is_err());
+    }
+
+    #[test]
+    fn test_missing_fields() {
+        let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        path.push("tests/config/missing_fields.yaml");
+        assert!(load_config(path.to_str().unwrap()).is_err());
+    }
+    
+    #[test]
+    fn test_incorrect_field_types() {
+        let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        path.push("tests/config/incorrect_types.yaml");
+        assert!(load_config(path.to_str().unwrap()).is_err());
+    }
 }
 

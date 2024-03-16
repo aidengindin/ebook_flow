@@ -1,0 +1,5 @@
+file_path: 42
+calibre_url: "http://calibre.box/"
+acsm_conversion_timeout: 48
+calibre_upload_timeout: "not a number"
+
