@@ -1,0 +1,5 @@
+file_path: "/path/to/ebooks"
+calibre_url: "http://calibre.box/"
+acsm_conversion_timeout: 48
+calibre_upload_timeout: 48
+

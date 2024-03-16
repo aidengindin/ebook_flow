@@ -22,3 +22,23 @@ pub fn load_config(path: &str) -> Result<Config, Box<dyn Error>> {
     Ok(config)
 }
 
+#[cfg(test)]
+mod tests {
+    use std::path::PathBuf;
+    use crate::load_config;
+
+    #[test]
+    fn test_valid_config() {
+        let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        path.push("tests/config/valid.yaml");
+
+        let config = load_config(path.to_str().unwrap())
+            .expect("Failed to load config");
+
+        assert_eq!(config.file_path, "/path/to/ebooks");
+        assert_eq!(config.calibre_url.as_str(), "http://calibre.box/");
+        assert_eq!(config.acsm_conversion_timeout, 48);
+        assert_eq!(config.calibre_upload_timeout, 48);
+    }
+}
+
