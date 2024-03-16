@@ -1,3 +1,5 @@
+mod config;
+
 use crate::config::load_config;
 
 fn main() {
